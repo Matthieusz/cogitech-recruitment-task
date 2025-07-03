@@ -14,7 +14,7 @@
       </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div v-if="loading" class="flex justify-center items-center py-12">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         <span class="ml-3 text-muted-foreground">Ładowanie postów...</span>
@@ -43,6 +43,57 @@
       </div>
 
       <div v-else>
+        <div v-if="totalPosts > 0" class="text-center text-sm text-muted-foreground mb-1">
+          Wyświetlanie {{ (currentPage - 1) * postsPerPage + 1 }} -
+          {{ Math.min(currentPage * postsPerPage, totalPosts) }} z {{ totalPosts }} postów
+        </div>
+        <div v-if="totalPages > 1" class="flex justify-center mb-4">
+          <Pagination
+            :total="totalPosts"
+            :siblingCount="1"
+            :defaultPage="1"
+            :page="currentPage"
+            :itemsPerPage="postsPerPage"
+            :showEdges="true"
+            @update:page="goToPage"
+          >
+            <PaginationContent v-slot="{ items }" class="gap-2">
+              <PaginationItem :value="Math.max(1, currentPage - 1)" as-child>
+                <PaginationPrevious :disabled="!hasPreviousPage">
+                  <ArrowBigLeft />
+                </PaginationPrevious>
+              </PaginationItem>
+
+              <template v-for="(page, index) in items" :key="index">
+                <PaginationItem
+                  v-if="page.type === 'page'"
+                  :value="page.value"
+                  :is-active="page.value === currentPage"
+                  as-child
+                >
+                  <button
+                    @click="goToPage(page.value)"
+                    class="min-w-[2.5rem] h-10 flex items-center justify-center rounded-md transition-colors"
+                    :class="
+                      page.value === currentPage
+                        ? 'text-primary'
+                        : 'hover:bg-accent hover:text-accent-foreground'
+                    "
+                  >
+                    {{ page.value }}
+                  </button>
+                </PaginationItem>
+                <PaginationEllipsis v-else :key="page.type" :index="index" />
+              </template>
+
+              <PaginationItem :value="Math.min(totalPages, currentPage + 1)" as-child>
+                <PaginationNext :disabled="!hasNextPage">
+                  <ArrowBigRight />
+                </PaginationNext>
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
         <div
           v-if="paginatedPosts.length > 0"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 items-stretch"
@@ -116,11 +167,6 @@
               </PaginationItem>
             </PaginationContent>
           </Pagination>
-        </div>
-
-        <div v-if="totalPosts > 0" class="text-center mt-4 text-sm text-muted-foreground">
-          Wyświetlanie {{ (currentPage - 1) * postsPerPage + 1 }} -
-          {{ Math.min(currentPage * postsPerPage, totalPosts) }} z {{ totalPosts }} postów
         </div>
       </div>
     </main>
