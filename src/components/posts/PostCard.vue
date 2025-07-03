@@ -35,7 +35,7 @@
     <div class="flex justify-end pt-4 border-t mt-auto">
       <button
         @click="handleDelete"
-        class="flex items-center px-4 py-2 text-destructive hover:text-destructive/80 hover:bg-destructive/10 rounded-lg transition-colors duration-200 text-sm font-medium"
+        class="flex items-center px-4 py-2 text-destructive hover:text-destructive/90 hover:bg-destructive/20 rounded-lg transition-colors duration-200 text-sm font-medium"
       >
         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
