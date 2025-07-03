@@ -32,8 +32,3 @@ export interface User {
 export interface PostWithAuthor extends Post {
   author: User
 }
-
-export interface ApiResponse<T> {
-  data: T
-  error?: string
-}
