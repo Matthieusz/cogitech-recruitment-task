@@ -29,9 +29,9 @@ const mode = useColorMode()
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
-      <DropdownMenuItem @click="mode = 'light'"> Light </DropdownMenuItem>
-      <DropdownMenuItem @click="mode = 'dark'"> Dark </DropdownMenuItem>
-      <DropdownMenuItem @click="mode = 'auto'"> System </DropdownMenuItem>
+      <DropdownMenuItem @click="mode = 'light'"> Jasny </DropdownMenuItem>
+      <DropdownMenuItem @click="mode = 'dark'"> Ciemny </DropdownMenuItem>
+      <DropdownMenuItem @click="mode = 'auto'"> Systemowy </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
