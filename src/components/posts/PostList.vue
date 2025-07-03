@@ -82,7 +82,7 @@
           >
             <PaginationContent v-slot="{ items }" class="gap-2">
               <PaginationItem :value="Math.max(1, currentPage - 1)" as-child>
-                <PaginationPrevious @click="goToPage(currentPage - 1)" :disabled="!hasPreviousPage">
+                <PaginationPrevious :disabled="!hasPreviousPage">
                   <ArrowBigLeft />
                 </PaginationPrevious>
               </PaginationItem>
@@ -110,7 +110,7 @@
               </template>
 
               <PaginationItem :value="Math.min(totalPages, currentPage + 1)" as-child>
-                <PaginationNext @click="goToPage(currentPage + 1)" :disabled="!hasNextPage">
+                <PaginationNext :disabled="!hasNextPage">
                   <ArrowBigRight />
                 </PaginationNext>
               </PaginationItem>
