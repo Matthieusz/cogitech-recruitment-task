@@ -62,7 +62,7 @@ const store = createStore<State>({
       try {
         commit('SET_LOADING', true)
         commit('SET_ERROR', null)
-
+        await new Promise((resolve) => setTimeout(resolve, 2000)) // network delay to better show the loading state
         const response = await fetch('https://jsonplaceholder.typicode.com/posts')
         if (!response.ok) {
           throw new Error('Nie udało się pobrać postów')
