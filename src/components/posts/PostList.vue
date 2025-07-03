@@ -4,7 +4,9 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div class="flex justify-between items-center">
           <div>
-            <h1 class="text-3xl font-bold text-card-foreground">Cogitech Recruitment Task</h1>
+            <h1 class="lg:text-3xl font-bold text-card-foreground sm:text-2xl">
+              Cogitech Recruitment Task
+            </h1>
           </div>
           <div>
             <ModeToggle />
@@ -101,7 +103,7 @@
         <div v-if="totalPages > 1" class="flex justify-center mb-4">
           <Pagination
             :total="totalPosts"
-            :siblingCount="1"
+            :siblingCount="0"
             :defaultPage="1"
             :page="currentPage"
             :itemsPerPage="postsPerPage"
@@ -175,7 +177,7 @@
         <div v-if="totalPages > 1" class="flex justify-center mt-8">
           <Pagination
             :total="totalPosts"
-            :siblingCount="1"
+            :siblingCount="0"
             :defaultPage="1"
             :page="currentPage"
             :itemsPerPage="postsPerPage"
