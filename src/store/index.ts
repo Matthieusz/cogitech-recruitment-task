@@ -21,7 +21,7 @@ const store = createStore<State>({
     error: null,
     currentPage: 1,
     totalPosts: 0,
-    postsPerPage: 10
+    postsPerPage: 10,
   },
 
   mutations: {
@@ -51,10 +51,10 @@ const store = createStore<State>({
     },
 
     DELETE_POST(state, postId: number) {
-      state.posts = state.posts.filter(post => post.id !== postId)
-      state.postsWithAuthors = state.postsWithAuthors.filter(post => post.id !== postId)
+      state.posts = state.posts.filter((post) => post.id !== postId)
+      state.postsWithAuthors = state.postsWithAuthors.filter((post) => post.id !== postId)
       state.totalPosts = state.posts.length
-    }
+    },
   },
 
   actions: {
@@ -73,7 +73,6 @@ const store = createStore<State>({
 
         await dispatch('fetchUsers')
         dispatch('combinePostsWithAuthors')
-
       } catch (error) {
         commit('SET_ERROR', error instanceof Error ? error.message : 'Wystąpił nieznany błąd')
       } finally {
@@ -91,13 +90,16 @@ const store = createStore<State>({
         const users: User[] = await response.json()
         commit('SET_USERS', users)
       } catch (error) {
-        commit('SET_ERROR', error instanceof Error ? error.message : 'Wystąpił błąd przy pobieraniu użytkowników')
+        commit(
+          'SET_ERROR',
+          error instanceof Error ? error.message : 'Wystąpił błąd przy pobieraniu użytkowników',
+        )
       }
     },
 
     combinePostsWithAuthors({ commit, state }) {
-      const postsWithAuthors: PostWithAuthor[] = state.posts.map(post => {
-        const author = state.users.find(user => user.id === post.userId)
+      const postsWithAuthors: PostWithAuthor[] = state.posts.map((post) => {
+        const author = state.users.find((user) => user.id === post.userId)
         return {
           ...post,
           author: author || {
@@ -110,16 +112,16 @@ const store = createStore<State>({
               suite: '',
               city: '',
               zipcode: '',
-              geo: { lat: '', lng: '' }
+              geo: { lat: '', lng: '' },
             },
             phone: '',
             website: '',
             company: {
               name: '',
               catchPhrase: '',
-              bs: ''
-            }
-          }
+              bs: '',
+            },
+          },
         }
       })
 
@@ -132,7 +134,7 @@ const store = createStore<State>({
 
     deletePost({ commit }, postId: number) {
       commit('DELETE_POST', postId)
-    }
+    },
   },
 
   getters: {
@@ -152,8 +154,8 @@ const store = createStore<State>({
 
     hasPreviousPage: (state) => {
       return state.currentPage > 1
-    }
-  }
+    },
+  },
 })
 
 export default store
