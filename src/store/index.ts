@@ -132,8 +132,23 @@ const store = createStore<State>({
       commit('SET_CURRENT_PAGE', page)
     },
 
-    deletePost({ commit }, postId: number) {
-      commit('DELETE_POST', postId)
+    async deletePost({ commit }, postId: number) {
+      try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
+          method: 'DELETE',
+        })
+
+        if (!response.ok) {
+          throw new Error('Nie udało się usunąć posta')
+        }
+
+        commit('DELETE_POST', postId)
+      } catch (error) {
+        commit(
+          'SET_ERROR',
+          error instanceof Error ? error.message : 'Wystąpił błąd przy usuwaniu posta',
+        )
+      }
     },
   },
 
